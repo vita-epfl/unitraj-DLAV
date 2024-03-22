@@ -67,11 +67,22 @@ motionnet
 ```
 There is a base config, dataset and model class, and each model has its own config, dataset and model class that inherit from the base class.
 
+## Data
+You can access the data [here](https://drive.google.com/file/d/1). We have provided three datasets of different difficulty levels: easy, medium and hard.
+You will be using the easy dataset for the first milestone, and the medium and hard datasets for the second and third milestones, respectively.
+
+
 ## Your Task
 Your task is to complete the PTR model and train it on the data we have provided. 
 The model is a transformer-based model that takes the past trajectory of the vehicle and its surrounding agents, along with the map, and predicts the future trajectory.
 ![system](docs/assets/PTR.png)
-This is the architecture of the model. The model is implemented in `motionnet/models/ptr/ptr_model.py` and the config is in `motionnet/configs/method/ptr.yaml`. 
+This is the architecture of the encoder part of model (where you need to implement). Supposing we are given the past t time steps for M agents and we have a feature vector of size $d_K$ for each agent at each time step, the encoder part of the model consists of the following steps:
+1. Add positional encoding to the input features at the time step dimension for distinguish between different time steps.
+2. Perform the temporal attention to capture the dependencies between the trajectories of each agent separately.
+3. Perform the spatial attention to capture the dependencies between the different agents at the same time step.
+These steps are repeated L times to capture the dependencies between the agents and the time steps.
+
+The model is implemented in `motionnet/models/ptr/ptr_model.py` and the config is in `motionnet/configs/method/ptr.yaml`. 
 Take a look at the model and the config to understand the structure of the model and the hyperparameters.
 
 You are asked to complete three parts of the model in `motionnet/models/ptr/ptr_model.py`:
@@ -81,3 +92,5 @@ You are asked to complete three parts of the model in `motionnet/models/ptr/ptr_
 
 You can find the instructions and some hints in the file itself. 
 
+## Submission
+You could follow the steps in the [kaggle competition](https://www.kaggle.com/c/epfl-dlav-2024/overview) to submit your results and compare them with the other students in the leaderboard.
